@@ -26,7 +26,9 @@ namespace Assignment_1
                 CustomEnterValue choiceValue = ValidateEnterValue.EnterInt();
                 if (choiceValue.Value == null)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(choiceValue.Message);
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -127,7 +129,9 @@ namespace Assignment_1
                 CustomEnterValue choiceValue = ValidateEnterValue.EnterInt();
                 if (choiceValue.Value == null)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(choiceValue.Message);
+                    Console.ResetColor();
                 }
                 else
                 {
