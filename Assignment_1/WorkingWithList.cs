@@ -87,16 +87,36 @@ namespace Assignment_1
             Console.Write("Last Name: ");
             string lastName = Console.ReadLine();
             Console.Write("Gender(male/female): ");
-            string gender = ValidateEnterValue.EnterGender();
+            CustomEnterValue gender = ValidateEnterValue.EnterGender();
+            if(gender.Value == null)
+            {
+                Console.WriteLine(gender.Message);
+                return;
+            }
             Console.Write("Date of Birth(yyyy/mm/DD): ");
-            DateOnly dateOfBirth = ValidateEnterValue.EnterDate();
+            CustomEnterValue dateOfBirth = ValidateEnterValue.EnterDate();
+            if(dateOfBirth.Value == null)
+            {
+                Console.WriteLine(dateOfBirth.Message);
+                return;
+            }
             Console.Write("Phone Number(10 digits): ");
-            string phoneNumber = ValidateEnterValue.EnterPhoneNumber();
+            CustomEnterValue phoneNumber = ValidateEnterValue.EnterPhoneNumber();
+            if(phoneNumber.Value == null)
+            {
+                Console.WriteLine(phoneNumber.Message);
+                return;
+            }
             Console.Write("Birth Place: ");
             string birthPlace = Console.ReadLine();
             Console.Write("Is Graduated(true/false): ");
-            bool isGraduated = ValidateEnterValue.EnterTrueFalse();
-            members.Add(new Member(firstName, lastName, gender, dateOfBirth, phoneNumber, birthPlace, isGraduated));
+            CustomEnterValue isGraduated = ValidateEnterValue.EnterTrueFalse();
+            if(isGraduated.Value == null)
+            {
+                Console.WriteLine(isGraduated.Message);
+                return;
+            }
+            members.Add(new Member(firstName, lastName, gender.Value, dateOfBirth.Value, phoneNumber.Value, birthPlace, isGraduated.Value));
         }
     }
 }

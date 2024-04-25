@@ -12,3 +12,4 @@ D:\TrainingRookie\R2E\Assignment_1\obj\Debug\net8.0\refint\Assignment_1.dll
 D:\TrainingRookie\R2E\Assignment_1\obj\Debug\net8.0\Assignment_1.pdb
 D:\TrainingRookie\R2E\Assignment_1\obj\Debug\net8.0\Assignment_1.genruntimeconfig.cache
 D:\TrainingRookie\R2E\Assignment_1\obj\Debug\net8.0\ref\Assignment_1.dll
+D:\TrainingRookie\R2E\Assignment_1\obj\Debug\net8.0\Assignment_1.sourcelink.json
