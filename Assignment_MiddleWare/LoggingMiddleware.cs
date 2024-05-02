@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Assignment_MiddleWare
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class LogginMiddleware
+    public class LoggingMiddleware
     {
         private readonly RequestDelegate _next;
 
 
-        public LogginMiddleware(RequestDelegate next)
+        public LoggingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -66,7 +66,7 @@ namespace Assignment_MiddleWare
     {
         public static IApplicationBuilder UseLogginMiddleware(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<LogginMiddleware>();
+            return builder.UseMiddleware<LoggingMiddleware>();
         }
     }
 }
