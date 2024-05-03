@@ -14,7 +14,7 @@ var configuration = new ConfigurationBuilder()
 //Log.Logger = new LoggerConfiguration()
 //    .WriteTo.File("logs/log.txt",
 //    rollingInterval: RollingInterval.Minute)
-//    .Filter.ByIncludingOnly(e => e.MessageTemplate.Text.Contains("RequestBody"))      //Only log message that contains RequestBody(except all default logs)
+//    .Filter.ByIncludingOnly(e => e.MessageTemplate.Text.Contains("RequestBody"))     //Only log message that contains RequestBody(except all default logs)
 //    .CreateLogger();
 
 Log.Logger = new LoggerConfiguration()

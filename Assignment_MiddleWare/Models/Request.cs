@@ -1,6 +1,6 @@
 ﻿namespace Assignment_MiddleWare.Models
 {
-    public class Request
+    public class Request 
     {
         public string? Schema { get; set; }
         public string? Host { get; set; }

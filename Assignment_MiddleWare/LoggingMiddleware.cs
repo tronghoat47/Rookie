@@ -11,13 +11,10 @@ namespace Assignment_MiddleWare
     public class LoggingMiddleware
     {
         private readonly RequestDelegate _next;
-
-
         public LoggingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
-
         public Task Invoke(HttpContext httpContext)
         {
             Request request = GetDataFromRequest(httpContext.Request);
