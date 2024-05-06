@@ -1,5 +1,6 @@
 ﻿using ProjectStructure.Domain;
 using ProjectStructure.Domain.DataAccess;
+using ProjectStructure.Domain.Models;
 using ProjectStructure.Repository.IRepository;
 using System;
 using System.Collections.Generic;

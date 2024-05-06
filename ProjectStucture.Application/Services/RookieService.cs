@@ -1,5 +1,6 @@
 ﻿using ProjectStructure.Domain;
 using ProjectStructure.Domain.Enums;
+using ProjectStructure.Domain.Models;
 using ProjectStructure.Repository.IRepository;
 using ProjectStucture.Application.Services.Interfaces;
 using System;

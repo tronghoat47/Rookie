@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectStructure.Domain;
 using ProjectStructure.Domain.Enums;
+using ProjectStructure.Domain.Models;
 using ProjectStucture.Application.Services.Interfaces;
 
 namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers

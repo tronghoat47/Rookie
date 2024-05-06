@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using ProjectStructure.Domain;
+using ProjectStructure.Domain.Models;
 using ProjectStucture.Application.Services.Interfaces;
 using System;
 using System.Collections.Generic;

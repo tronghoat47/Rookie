@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStructure.Domain.Models.Enums
+namespace ProjectStructure.Domain.Enums
 {
-    public enum Operators
+    public enum ComparisionOperator
     {
         gt = 0,
         lt = 1,
