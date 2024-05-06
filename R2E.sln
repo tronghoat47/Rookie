@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStucture.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStructure.Domain", "ProjectStructure.Core\ProjectStructure.Domain.csproj", "{9D232D12-1ADD-4B44-802D-A86251858FCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectStructure.MVC_Day1", "ProjectStructure.MVC_Day1\ProjectStructure.MVC_Day1.csproj", "{D5F2447E-9E89-40A7-BF75-1A1B386CDA0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStructure.Presentation.MVC_Day1", "ProjectStructure.MVC_Day1\ProjectStructure.Presentation.MVC_Day1.csproj", "{D5F2447E-9E89-40A7-BF75-1A1B386CDA0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
