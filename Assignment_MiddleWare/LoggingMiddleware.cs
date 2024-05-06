@@ -26,6 +26,14 @@ namespace Assignment_MiddleWare
             sb.AppendLine($"RequestBody: {request.RequestBody}");
 
             Log.Information(sb.ToString());
+
+            //var fileLog = new LoggerConfiguration()
+            //    .WriteTo.File("logs/log.txt",
+            //                   rollingInterval: RollingInterval.Minute)
+            //    .CreateLogger();
+            //fileLog.Information(sb.ToString());
+            //fileLog.Dispose();
+
             return _next(httpContext);
         }
 
