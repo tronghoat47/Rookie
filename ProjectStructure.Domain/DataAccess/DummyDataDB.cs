@@ -31,7 +31,14 @@ namespace ProjectStructure.Domain.DataAccess
             new Person("Alexander", "Gonzalez", GenderType.male, new DateOnly(1985, 6, 18), "8901234567", "Charlotte", true),
             new Person("Isabella", "Moore", GenderType.female, new DateOnly(1992, 8, 9), "9012345678", "Seattle", true),
             new Person("Joseph", "Jackson", GenderType.male, new DateOnly(1989, 4, 5), "0123456789", "Denver", true),
-            new Person("Mia", "Thomas", GenderType.female, new DateOnly(1991, 11, 30), "1234567890", "Washington", false)
+            new Person("Mia", "Thomas", GenderType.female, new DateOnly(1991, 11, 30), "1234567890", "Washington", false),
+            new Person("Mia", "Joseph", GenderType.other, new DateOnly(1990, 1, 1), "1234567890", "Hanoi", true),
+            new Person("Isabella", "Unknown", GenderType.unknown, new DateOnly(1988, 5, 10), "2345678901", "New York", true),
+            new Person("Hernandez", "Hernandez", GenderType.other, new DateOnly(1985, 9, 15), "3456789012", "Los Angeles", false),
+            new Person("William", "William", GenderType.unknown, new DateOnly(1992, 3, 20), "4567890123", "Chicago", true),
+            new Person("Olivia", "Olivia", GenderType.other, new DateOnly(1987, 7, 25), "5678901234", "Houston", true),
+
+
             };
     }
 }

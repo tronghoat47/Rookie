@@ -20,10 +20,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="NashTech" asp-controller="Rookie" asp-action="Index" >List all people</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-primary" asp-area="NashTech" asp-controller="Rookie" asp-action="PeopleByGender" asp-route-gender="male" asp-route-firstLoad="true">People by gender</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" asp-area="NashTech" asp-controller="Rookie" asp-action="TheOldestPerson">The first oldest person</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-success" asp-area="NashTech" asp-controller="Rookie" asp-action="PeopleWithFullName">List people combined name</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" asp-area="NashTech" asp-controller="Rookie" asp-action="PeopleByYearOfBirth" asp-route-ope="eq" asp-route-year="2000" asp-route-firstLoad="true">People by year of birth</a>
                         </li>
                     </ul>
                 </div>

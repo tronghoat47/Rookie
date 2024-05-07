@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<ProjectStructure.Domain.Models.Person>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<label for="male">Male</label>
+<input id="male" checked type="radio" name="gender" value="male" />
+<br />
+<label for="female">Female</label>
+<input id="female" type="radio" name="gender" value="female" />
+<br />
+<label for="unknown">Unknown</label>
+<input id="unknown" type="radio" name="gender" value="unknown" />
+<br />
+<label for="other">Other</label>
+<input id="other" type="radio" name="gender" value="other" />
+<br />
+
+@if (ViewBag.IsNoElement != null)
+{
+    <h3 class="text-danger">@ViewBag.IsNoElement</h3>
+}
+else
+{
+    <div id="peopleTable">
+        @Html.Partial("_TablePeople", Model)
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input[type=radio][name=gender]').change(function () {
+                $.ajax({
+                    url: '/NashTech/Rookie/PeopleByGender',
+                    type: 'GET',
+                    data: { gender: $(this).val(), firstLoad: false },
+                    success: function (response) {
+                        $('#peopleTable').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

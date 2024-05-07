@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectStructure.Domain.Constants;
 using ProjectStructure.Domain.Enums;
+using ProjectStructure.Domain.ViewModels;
 
 namespace ProjectStructure.Domain.Models
 {
@@ -39,5 +41,21 @@ namespace ProjectStructure.Domain.Models
         {
             Id = Guid.NewGuid();
         }
+
+        [NotMapped]
+        public List<SelectItem> GraduatedOption = new List<SelectItem>
+        {
+            new SelectItem { Key = true, Description = "Yes" },
+            new SelectItem { Key = false, Description = "No" }
+        };
+
+        [NotMapped]
+        public List<SelectItem> GenderOption = new List<SelectItem>
+        {
+            new SelectItem { Key = GenderType.unknown, Description = "Unknown" },
+            new SelectItem { Key = GenderType.male, Description = "Male" },
+            new SelectItem { Key = GenderType.female, Description = "Female" },
+            new SelectItem { Key = GenderType.other, Description = "Other" },
+        };
     }
 }

@@ -27,7 +27,7 @@ namespace ProjectStucture.Application.Services
             var people = _personRepository.GetPeople().Where(person => comparison == "eq" && person.DateOfBirth.Year == year
                                                     || comparison == "gt" && person.DateOfBirth.Year > year
                                                     || comparison == "lt" && person.DateOfBirth.Year < year);
-            return people == null ? new List<Person>() : people.ToList();
+            return people.ToList();
         }
 
         public Person GetOldestPerson()
@@ -39,7 +39,7 @@ namespace ProjectStucture.Application.Services
         public List<Person> GetPeopleByGender(string gender)
         {
             var people = _personRepository.GetPeople().Where(p => p.Gender.ToString() == gender);
-            return people == null ? new List<Person>() : people.ToList();
+            return people.ToList();
         }
 
         public string GetStringResult(List<Person> people, bool isCombinedName)

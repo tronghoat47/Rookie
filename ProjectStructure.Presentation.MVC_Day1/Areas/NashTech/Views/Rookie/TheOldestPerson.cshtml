@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@Model ProjectStructure.Domain.Models.Person
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>The oldest person</h1>
+
+<div>
+    <h3>First name: @Model.FirstName</h3>
+    <h3>Last name: @Model.LastName</h3>
+    <h3>Gender: @Model.Gender</h3>
+    <h3>Date of birth: @Model.DateOfBirth</h3>
+    <h3>Phone number: @Model.PhoneNumber</h3>
+    <h3>Birth place: @Model.BirthPlace</h3>
+    <h3>Is graduated: @Model.IsGraduated</h3>
+</div>

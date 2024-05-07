@@ -3,7 +3,6 @@
 *@
 @{
 }
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjectStructure.Domain.Models.Person
 
 @{
@@ -53,11 +52,13 @@
 
     <div class="form-group">
         <label for="Gender">Gender:</label>
-        <select id="Gender" class="form-control" asp-for="Gender" >
-            @foreach (var genderType in ViewBag.GenderTypes)
-            {
-                <option  value="@genderType">@genderType</option>
-            }
+        <select id="Gender" class="form-control" asp-for="Gender" asp-items="@(new SelectList(Model.GenderOption, "Key", "Description"))">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="IsGraduated">Is Graduated:</label>
+        <select id="IsGraduated" class="form-control" asp-for="IsGraduated" asp-items="@(new SelectList(Model.GraduatedOption, "Key", "Description"))">
         </select>
     </div>
 

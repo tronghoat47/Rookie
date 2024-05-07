@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<ProjectStructure.Domain.Models.Person>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<label for="eq">Equal</label>
+<input id="eq" checked type="radio" name="ope" value="eq" />
+<br />
+<label for="gt">Greater than</label>
+<input id="gt"  type="radio" name="ope" value="gt" />
+<br />
+<label for="lt">Less than</label>
+<input id="lt" type="radio" name="ope" value="lt" />
+<br />
+
+<input type="number" id="year" required value="@ViewBag.Year" />
+
+@if (ViewBag.IsNoElement != null)
+{
+    <h3 class="text-danger">@ViewBag.IsNoElement</h3>
+}
+else
+{
+    <div id="peopleTable">
+        @Html.Partial("_TablePeople", Model)
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input[type=radio][name=ope], #year').change(function () {
+                var ope = $('input[type=radio][name=ope]:checked').val();
+                var year = $('#year').val();
+                $.ajax({
+                    url: '/NashTech/Rookie/PeopleByYearOfBirth',
+                    type: 'GET',
+                    data: { ope: ope, year: year, firstLoad: false },
+                    success: function (response) {
+                        $('#peopleTable').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+}

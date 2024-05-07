@@ -17,48 +17,88 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
             _rookieService = rookieService;
             _excelService = excelService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 2)
         {
-            var people = _rookieService.GetPeople();
+            var people = _rookieService.GetPeople()
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
             ViewBag.Message = TempData["Message"];
             ViewBag.Error = TempData["Error"];
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalPages = Math.Ceiling((double)_rookieService.GetPeople().Count() / pageSize);
 
-            //var result = _rookieService.GetStringResult(people, false);
-
-            //return Content(result);
             return View(people);
         }
 
-        public IActionResult PeopleByGender(string gender)
+        public IActionResult PeopleByGender(string gender, bool firstLoad)
         {
             if (!string.IsNullOrEmpty(gender) && Enum.IsDefined(typeof(GenderType), gender))
             {
                 var people = _rookieService.GetPeopleByGender(gender);
-                return Content(_rookieService.GetStringResult(people, false));
+                if (firstLoad)
+                    return View(people);
+                if (people.Count == 0)
+                {
+                    ViewBag.Error = "No person found";
+                    return PartialView("_TablePeople", new List<Person>());
+                }
+                return PartialView("_TablePeople", people);
             }
-            return Content("gender is not valid");
+            ViewBag.Error = "Gender is not valid";
+            return PartialView("_TablePeople", new List<Person>());
         }
 
         public IActionResult TheOldestPerson()
         {
-            var result = _rookieService.GetOldestPerson();
-            return Content(_rookieService.GetStringResult(new List<Person> { result }, false));
+            var person = _rookieService.GetOldestPerson();
+            if (person == null)
+            {
+                return RedirectToAction("Detail");
+            }
+            return RedirectToAction("Detail", new { id = person.Id });
+
         }
 
         public IActionResult PeopleWithFullName()
         {
-            var result = _rookieService.GetStringResult(_rookieService.GetPeople(), true);
-            return Content(result);
+            var people = _rookieService.GetPeople().Select(p => new
+            {
+                Id = p.Id,
+                FullName = p.FirstName + " " + p.LastName,
+                Gender = p.Gender,
+                DateOfBirth = p.DateOfBirth,
+                PhoneNumber = p.PhoneNumber,
+                BirthPlace = p.BirthPlace,
+                IsGraduated = p.IsGraduated
+            });
+            if (people.Count() == 0)
+            {
+                ViewBag.IsNoElement = "No person found";
+                return View();
+            }
+            return View(people);
         }
 
-        public IActionResult PeopleByYearOfBirth(string ope, string year)
+        public IActionResult PeopleByYearOfBirth(string ope, string year, bool firstLoad)
         {
-            if(!string.IsNullOrEmpty(ope) && Enum.IsDefined(typeof(ComparisionOperator), ope) && int.TryParse(year, out var value))
+            if (!string.IsNullOrEmpty(ope) && Enum.IsDefined(typeof(ComparisionOperator), ope) && int.TryParse(year, out var value))
             {
                 var people = _rookieService.FilterByBirthYear(value, ope);
-                return Content(_rookieService.GetStringResult(people, false));
+                ViewBag.Year = year;
+                if (firstLoad)
+                    return View(people);
+
+                if (people.Count == 0)
+                {
+                    ViewBag.IsNoElement = "No person found";
+                    return PartialView("_TablePeople", new List<Person>());
+                }
+                return PartialView("_TablePeople", people);
             }
-            return Content("Invalid on query");
+            ViewBag.Error = "Invalid input";
+            return PartialView("_TablePeople", new List<Person>());
         }
 
         public IActionResult ExportToExcel()
@@ -97,6 +137,11 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
         public IActionResult Detail(Guid id)
         {
             var person = _rookieService.GetPersonById(id);
+            if (person == null)
+            {
+                ViewBag.Error = "Person not found";
+                return View();
+            }
             ViewBag.GenderTypes = Enum.GetValues(typeof(GenderType));
             return View(person);
         }
@@ -105,7 +150,7 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
         public IActionResult Edit(Guid id)
         {
             var person = _rookieService.GetPersonById(id);
-            if(person == null)
+            if (person == null)
             {
                 TempData["Error"] = "Person not found";
                 return RedirectToAction("Index");
@@ -134,9 +179,18 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
             }
             return View(person);
         }
+        [HttpDelete]
         public IActionResult Delete(Guid id)
         {
-            return View();
+            var result = _rookieService.DeletePerson(id);
+            if (result != null)
+            {
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
         }
 
     }

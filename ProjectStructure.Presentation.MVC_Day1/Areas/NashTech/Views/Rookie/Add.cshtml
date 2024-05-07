@@ -1,7 +1,6 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
 }
 @{
@@ -41,15 +40,13 @@
 
     <div class="form-group">
         <label asp-for="IsGraduated">Is Graduated?</label>
-        <select asp-for="IsGraduated" class="form-control">
-            <option value="true">Yes</option>
-            <option value="false">No</option>
+        <select asp-for="IsGraduated" class="form-control" asp-items="@(new SelectList(Model.GraduatedOption, "Key", "Description"))">
         </select>
     </div>
 
     <div class="form-group">
         <label asp-for="Gender">Gender</label>
-        <select asp-for="Gender" asp-items="ViewBag.GenderTypes" class="form-control">
+        <select asp-for="Gender" asp-items="@(new SelectList(Model.GenderOption, "Key", "Description"))" class="form-control">
             <option>Please select gender</option>
         </select>
         <span asp-validation-for="Gender" class="text-danger"></span>

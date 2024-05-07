@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List people combined name</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                FullName
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                DateOfBirth
+            </th>
+            <th>
+                PhoneNumber
+            </th>
+            <th>
+                BirthPlace
+            </th>
+            <th>
+                IsGraduated
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class=@(item.IsGraduated ? "text-success" : "text-danger")>
+                <td>
+                    @item.FullName
+                </td>
+                <td>
+                    @item.Gender
+                </td>
+                <td>
+                    @item.DateOfBirth
+                </td>
+                <td>
+                    @item.PhoneNumber
+                </td>
+                <td>
+                    @item.BirthPlace
+                </td>
+                <td>
+                    @(item.IsGraduated ? "Yes" : "No")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

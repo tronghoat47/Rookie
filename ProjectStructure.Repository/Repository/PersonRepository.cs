@@ -18,7 +18,7 @@ namespace ProjectStructure.Repository.Repository
         }
         public Person GetPersonById(Guid id)
         {
-            return DummyDataDB.ListPeople.FirstOrDefault(x => x.Id == id);
+            return DummyDataDB.ListPeople.Find(x => x.Id == id);
         }
         public Person AddPerson(Person person)
         {
@@ -27,7 +27,7 @@ namespace ProjectStructure.Repository.Repository
         }
         public Person UpdatePerson(Person person)
         {
-            var personToUpdate = DummyDataDB.ListPeople.FirstOrDefault(x => x.Id == person.Id);
+            var personToUpdate = DummyDataDB.ListPeople.Find(x => x.Id == person.Id);
             if (personToUpdate != null)
             {
                 personToUpdate.FirstName = person.FirstName;
@@ -42,7 +42,7 @@ namespace ProjectStructure.Repository.Repository
         }
         public Person DeletePerson(Guid id)
         {
-            var personToDelete = DummyDataDB.ListPeople.FirstOrDefault(x => x.Id == id);
+            var personToDelete = DummyDataDB.ListPeople.Find(x => x.Id == id);
             if (personToDelete != null)
             {
                 DummyDataDB.ListPeople.Remove(personToDelete);
