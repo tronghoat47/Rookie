@@ -11,5 +11,9 @@ namespace ProjectStructure.Repository.IRepository
     public interface IPersonRepository
     {
         List<Person> GetPeople();
+        Person GetPersonById(Guid id);
+        Person AddPerson(Person person);
+        Person UpdatePerson(Person person);
+        Person DeletePerson(Guid id);
     }
 }

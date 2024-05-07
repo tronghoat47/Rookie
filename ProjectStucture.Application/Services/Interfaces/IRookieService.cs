@@ -18,5 +18,9 @@ namespace ProjectStucture.Application.Services.Interfaces
         List<Person> GetPeopleByGender(string gender);
         Person GetOldestPerson();
         List<Person> FilterByBirthYear(int year, string comparison);
+        Person AddPerson(Person person);
+        Person UpdatePerson(Person person);
+        Person DeletePerson(Guid id);
+        Person GetPersonById(Guid id);
     }
 }

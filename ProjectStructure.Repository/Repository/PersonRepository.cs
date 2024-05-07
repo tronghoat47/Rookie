@@ -12,14 +12,42 @@ namespace ProjectStructure.Repository.Repository
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly DummyDataDB _dummyDataDB;
-        public PersonRepository(DummyDataDB dummyDataDB)
-        {
-            _dummyDataDB = dummyDataDB;
-        }
         public List<Person> GetPeople()
         {
-            return _dummyDataDB.GetDummyPersons();
+            return DummyDataDB.ListPeople;
+        }
+        public Person GetPersonById(Guid id)
+        {
+            return DummyDataDB.ListPeople.FirstOrDefault(x => x.Id == id);
+        }
+        public Person AddPerson(Person person)
+        {
+            DummyDataDB.ListPeople.Add(person);
+            return person;
+        }
+        public Person UpdatePerson(Person person)
+        {
+            var personToUpdate = DummyDataDB.ListPeople.FirstOrDefault(x => x.Id == person.Id);
+            if (personToUpdate != null)
+            {
+                personToUpdate.FirstName = person.FirstName;
+                personToUpdate.LastName = person.LastName;
+                personToUpdate.Gender = person.Gender;
+                personToUpdate.DateOfBirth = person.DateOfBirth;
+                personToUpdate.PhoneNumber = person.PhoneNumber;
+                personToUpdate.BirthPlace = person.BirthPlace;
+                personToUpdate.IsGraduated = person.IsGraduated;
+            }
+            return personToUpdate;
+        }
+        public Person DeletePerson(Guid id)
+        {
+            var personToDelete = DummyDataDB.ListPeople.FirstOrDefault(x => x.Id == id);
+            if (personToDelete != null)
+            {
+                DummyDataDB.ListPeople.Remove(personToDelete);
+            }
+            return personToDelete;
         }
     }
 }

@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ProjectStructure.Domain.Models.Person
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Person Details</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="FirstName">First Name:</label>
+            <input id="FirstName" type="text" class="form-control" value="@Model.FirstName" readonly />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="LastName">Last Name:</label>
+            <input id="LastName" type="text" class="form-control" value="@Model.LastName" readonly />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="DateOfBirth">Date of Birth:</label>
+            <input id="DateOfBirth" type="text" class="form-control" value="@Model.DateOfBirth.ToShortDateString()" readonly />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="PhoneNumber">Phone Number:</label>
+            <input id="PhoneNumber" type="text" class="form-control" value="@Model.PhoneNumber" readonly />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="BirthPlace">Birth Place:</label>
+            <input id="BirthPlace" type="text" class="form-control" value="@Model.BirthPlace" readonly />
+            <span asp-validation-for="BirthPlace" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="IsGraduated">Is Graduated:</label>
+            <select id="IsGraduated" class="form-control" disabled>
+                <option value="true" @(Model.IsGraduated ? "selected" : "")>Yes</option>
+                <option value="false" @(!Model.IsGraduated ? "selected" : "")>No</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Gender">Gender:</label>
+            <select id="Gender" class="form-control" disabled>
+                @foreach (var genderType in ViewBag.GenderTypes)
+                {
+                    <option @(Model.Gender==genderType ? "selected" : "") value="@genderType">@genderType</option>
+                }
+            </select>
+        </div>
+        <button id="deleteBtn" class="btn btn-danger">Delete</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#deleteBtn").click(function () {
+                if (confirm("Are you sure you want to delete this person?")) {
+
+                }
+            });
+        });
+    </script>
+}

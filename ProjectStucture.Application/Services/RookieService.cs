@@ -24,10 +24,10 @@ namespace ProjectStucture.Application.Services
         }
         public List<Person> FilterByBirthYear(int year, string comparison)
         {
-            return _personRepository.GetPeople().Where(person => comparison == "eq" && person.DateOfBirth.Year == year
+            var people = _personRepository.GetPeople().Where(person => comparison == "eq" && person.DateOfBirth.Year == year
                                                     || comparison == "gt" && person.DateOfBirth.Year > year
-                                                    || comparison == "lt" && person.DateOfBirth.Year < year)
-                                    .ToList();
+                                                    || comparison == "lt" && person.DateOfBirth.Year < year);
+            return people == null ? new List<Person>() : people.ToList();
         }
 
         public Person GetOldestPerson()
@@ -38,8 +38,8 @@ namespace ProjectStucture.Application.Services
 
         public List<Person> GetPeopleByGender(string gender)
         {
-            List<Person> result = _personRepository.GetPeople().Where(p => p.Gender.ToString() == gender).ToList();
-            return result;
+            var people = _personRepository.GetPeople().Where(p => p.Gender.ToString() == gender);
+            return people == null ? new List<Person>() : people.ToList();
         }
 
         public string GetStringResult(List<Person> people, bool isCombinedName)
@@ -74,6 +74,38 @@ namespace ProjectStucture.Application.Services
                 }
             }
             return result;
+        }
+        public Person GetPersonById(Guid id)
+        {
+            return _personRepository.GetPersonById(id);
+        }
+        public Person AddPerson(Person person)
+        {
+            var existingPerson = GetPersonById(person.Id);
+            if (existingPerson != null)
+            {
+                return null;
+            }
+            return _personRepository.AddPerson(person);
+        }
+
+        public Person UpdatePerson(Person person)
+        {
+            var existingPerson = GetPersonById(person.Id);
+            if (existingPerson == null)
+            {
+                return null;
+            }
+            return _personRepository.UpdatePerson(person);
+        }
+        public Person DeletePerson(Guid id)
+        {
+            var existingPerson = GetPersonById(id);
+            if (existingPerson == null)
+            {
+                return null;
+            }
+            return _personRepository.DeletePerson(id);
         }
     }
 }
