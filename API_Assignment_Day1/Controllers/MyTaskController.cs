@@ -92,15 +92,25 @@ namespace API_Assignment_Day1.Controllers
         public IActionResult DeleteBulkTasks([FromBody] List<Guid> ids)
         {
             List<MyTask> deletedTasks = new List<MyTask>();
+            List<Guid> notFoundIds = new List<Guid>();
             foreach (var id in ids)
             {
                 MyTask task = _taskService.DeleteTask(id);
                 if (task != null)
                 {
                     deletedTasks.Add(task);
+                }else
+                {
+                    notFoundIds.Add(id);
                 }
             }
-            return Ok(deletedTasks);
+            return Ok(new
+            {
+                Fail = notFoundIds.Count,
+                Success = deletedTasks.Count,
+                DeletedTasks = deletedTasks,
+                IdsNotFound = notFoundIds
+            });
         }
     }
 }
