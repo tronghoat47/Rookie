@@ -18,7 +18,7 @@ namespace API_Assignment_Day2.Controllers
             _rookieService = rookieService;
         }
         [HttpGet]
-        [Authorize(Roles = "user")]
+        //[Authorize(Roles = "user")]
         public IActionResult GetPersons()
         {
             var persons = _rookieService.GetPeople();
@@ -32,7 +32,7 @@ namespace API_Assignment_Day2.Controllers
         /// <param name="id">Id is type of Guid</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [Authorize(Roles = "user")]
+        //[Authorize(Roles = "user")]
         public IActionResult GetPerson(Guid id)
         {
             var person = _rookieService.GetPersonById(id);
@@ -41,7 +41,7 @@ namespace API_Assignment_Day2.Controllers
             return Ok(new PersonResponse(person));
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public IActionResult AddPerson(PersonRequest personRequest)
         {
             var person = new Person
@@ -66,7 +66,7 @@ namespace API_Assignment_Day2.Controllers
         /// <param name="personRequest"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public IActionResult UpdatePerson(Guid id, PersonRequest personRequest)
         {
             var person = new Person
@@ -92,7 +92,7 @@ namespace API_Assignment_Day2.Controllers
         /// <param name="id">Id is type of Guid</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public IActionResult DeletePerson(Guid id)
         {
             var person = _rookieService.DeletePerson(id);
@@ -106,6 +106,8 @@ namespace API_Assignment_Day2.Controllers
         {
             string name = string.IsNullOrEmpty(objectFilter.Name) ? "" : objectFilter.Name;
             string birthPlace = string.IsNullOrEmpty(objectFilter.BirthPlace) ? "" : objectFilter.BirthPlace;
+            if(string.IsNullOrEmpty(objectFilter.Gender))
+                return Ok(_rookieService.FilterPeople(name, birthPlace).ConvertAll(person => new PersonResponse(person)));
             var genderGenderType = (GenderType)Enum.Parse(typeof(GenderType), objectFilter.Gender, true);
             var persons = _rookieService.FilterPeople(name, genderGenderType, birthPlace);
             if(persons == null)

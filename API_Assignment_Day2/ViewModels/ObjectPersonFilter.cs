@@ -8,7 +8,7 @@ namespace API_Assignment_Day2.ViewModels
         /// <summary>
         /// Accepts value: unknown(0), male(1), female(2), other(3)
         /// </summary>
-        [ValidGenderTypeAttribute]
+        //[ValidGenderTypeAttribute]
         public string? Gender { get; set; }
         public string? BirthPlace { get; set; }
     }

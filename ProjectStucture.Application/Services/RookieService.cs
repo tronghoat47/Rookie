@@ -115,5 +115,13 @@ namespace ProjectStucture.Application.Services
             return people.ToList();
         }
 
+        public List<Person> FilterPeople(string name, string birthPlace)
+        {
+            var people = _personRepository.GetPeople()
+                .Where(p => (p.FirstName.Contains(name) || p.LastName.Contains(name))
+                               && p.BirthPlace.Contains(birthPlace));
+            return people.ToList();
+        }
+
     }
 }

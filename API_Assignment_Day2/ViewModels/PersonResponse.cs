@@ -2,6 +2,7 @@
 using ProjectStructure.Domain.Enums;
 using ProjectStructure.Domain.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API_Assignment_Day2.ViewModels
 {
@@ -11,7 +12,9 @@ namespace API_Assignment_Day2.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
+        [JsonIgnore]
         public DateOnly DateOfBirth { get; set; }
+        public string DateOfBirthRes => DateOfBirth.ToString("MM/dd/yyyy");
         public string? PhoneNumber { get; set; }
         public string? BirthPlace { get; set; }
         public bool IsGraduated { get; set; }
