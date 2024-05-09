@@ -22,5 +22,6 @@ namespace ProjectStucture.Application.Services.Interfaces
         Person UpdatePerson(Person person);
         Person DeletePerson(Guid id);
         Person GetPersonById(Guid id);
+        List<Person> FilterPeople(string name, GenderType gender, string birthPlace);
     }
 }

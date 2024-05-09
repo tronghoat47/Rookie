@@ -107,5 +107,13 @@ namespace ProjectStucture.Application.Services
             }
             return _personRepository.DeletePerson(id);
         }
+        public List<Person> FilterPeople(string name, GenderType gender, string birthPlace)
+        {
+            var people = _personRepository.GetPeople()
+                .Where(p => (p.FirstName.Contains(name) || p.LastName.Contains(name))
+                && p.Gender==gender && p.BirthPlace.Contains(birthPlace));
+            return people.ToList();
+        }
+
     }
 }

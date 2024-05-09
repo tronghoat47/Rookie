@@ -42,6 +42,18 @@ namespace ProjectStructure.Domain.Models
             Id = Guid.NewGuid();
         }
 
+        public Person(Person person)
+        {
+            Id = person.Id;
+            FirstName = person.FirstName;
+            LastName = person.LastName;
+            Gender = person.Gender;
+            DateOfBirth = person.DateOfBirth;
+            PhoneNumber = person.PhoneNumber;
+            BirthPlace = person.BirthPlace;
+            IsGraduated = person.IsGraduated;
+        }
+
         [NotMapped]
         public List<SelectItem> GraduatedOption = new List<SelectItem>
         {
