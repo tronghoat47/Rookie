@@ -1,15 +1,8 @@
 ﻿using Assignment_2_PrimeNumberAsync;
-using Common;
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
 
-class Program
+internal class Program
 {
-    
-
-    static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
         int lowerBound = ValidateValue.ValidateLowerBound();
         int upperBound = ValidateValue.ValidateUpperBound(lowerBound);

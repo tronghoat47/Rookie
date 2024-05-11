@@ -1,22 +1,16 @@
 ﻿using App.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace App.Infrastructure.AccessData
+namespace App.Infrastructure
 {
     public class RookieDBContext : DbContext
     {
         public RookieDBContext(DbContextOptions<RookieDBContext> options) : base(options)
         {
         }
+
         public RookieDBContext()
         {
-            
         }
 
         public DbSet<Department> Departments { get; set; }
@@ -25,24 +19,21 @@ namespace App.Infrastructure.AccessData
         public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
         public DbSet<Salary> Salaries { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if(!optionsBuilder.IsConfigured)
-            {
-                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(ConnectionString);
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjectEmployee>()
                 .HasKey(pe => new { pe.ProjectId, pe.EmployeeId });
             modelBuilder.Entity<Project>()
                 .HasCheckConstraint("CK_Project_StartDate_EndDate", "StartDate < EndDate");
-            //i want to add a check constraint to ensure that the salary amount is greater than 0
             modelBuilder.Entity<Salary>()
                 .HasCheckConstraint("CK_Salary_Amount", "Amount > 0");
+            modelBuilder.Entity<Department>()
+                .HasCheckConstraint("CK_Department_Location", "Location IN ('Hanoi', 'HCM', 'Danang')")
+                .Property(d => d.Location)
+                .HasDefaultValue("Hanoi");
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Status)
+                .HasDefaultValue("New");
 
             //Seed data for all tables
             var departments = new List<Department>()
@@ -233,7 +224,6 @@ namespace App.Infrastructure.AccessData
                 new Salary { Id=14, Amount = 60000, EmployeeId = 15 },
             };
             modelBuilder.Entity<Salary>().HasData(salaries);
-
 
             var projects = new List<Project>() {
                 new Project

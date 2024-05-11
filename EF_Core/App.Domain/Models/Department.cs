@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Models
 {
@@ -11,12 +6,15 @@ namespace App.Domain.Models
     {
         [Key]
         public long Id { get; set; }
+
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
+
         [Required]
         [RegularExpression("Hanoi|HCM|Danang")]
-        public string Location { get; set; }
+        public string Location { get; set; } = "Hanoi";
+
         public virtual List<Employee>? Employees { get; set; }
     }
 }

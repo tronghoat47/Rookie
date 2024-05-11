@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStructure.Domain.DataAccess
+namespace ProjectStructure.Domain
 {
     public class DummyDataDB
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assignment_1
+﻿namespace Assignment_1
 {
     public class WorkingWithList
     {
@@ -88,21 +82,21 @@ namespace Assignment_1
             string lastName = Console.ReadLine();
             Console.Write("Gender(male/female): ");
             CustomEnterValue gender = ValidateEnterValue.EnterGender();
-            if(gender.Value == null)
+            if (gender.Value == null)
             {
                 Console.WriteLine(gender.Message);
                 return;
             }
             Console.Write("Date of Birth(yyyy/mm/DD): ");
             CustomEnterValue dateOfBirth = ValidateEnterValue.EnterDate();
-            if(dateOfBirth.Value == null)
+            if (dateOfBirth.Value == null)
             {
                 Console.WriteLine(dateOfBirth.Message);
                 return;
             }
             Console.Write("Phone Number(10 digits): ");
             CustomEnterValue phoneNumber = ValidateEnterValue.EnterPhoneNumber();
-            if(phoneNumber.Value == null)
+            if (phoneNumber.Value == null)
             {
                 Console.WriteLine(phoneNumber.Message);
                 return;
@@ -111,7 +105,7 @@ namespace Assignment_1
             string birthPlace = Console.ReadLine();
             Console.Write("Is Graduated(true/false): ");
             CustomEnterValue isGraduated = ValidateEnterValue.EnterTrueFalse();
-            if(isGraduated.Value == null)
+            if (isGraduated.Value == null)
             {
                 Console.WriteLine(isGraduated.Message);
                 return;

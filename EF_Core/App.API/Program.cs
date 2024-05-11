@@ -1,15 +1,18 @@
+using App.Application;
 using App.Domain.Interfaces;
-using App.Infrastructure.AccessData;
+using App.Infrastructure;
+using App.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<RookieDBContext>(options => options.UseSqlServer(connectionString));
 
-// Add services to the container.
-
-builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,5 +33,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors(builder =>
+{
+    builder.WithOrigins("*")
+    .AllowAnyHeader()
+    .AllowAnyMethod();
+});
 
 app.Run();

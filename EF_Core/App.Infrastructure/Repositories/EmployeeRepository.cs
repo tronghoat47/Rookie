@@ -1,18 +1,18 @@
 ﻿using App.Domain.Interfaces;
 using App.Domain.Models;
-using App.Infrastructure.AccessData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infrastructure.Repositories
 {
     public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(RookieDBContext context)
+        public EmployeeRepository(RookieDBContext context) : base(context)
         {
+        }
+
+        public async Task<dynamic> GetByQueryAsync(string query)
+        {
+            return await _context.Employees.FromSqlRaw(query).ToListAsync();
         }
     }
 }

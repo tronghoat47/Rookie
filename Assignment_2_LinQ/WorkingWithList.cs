@@ -1,9 +1,4 @@
 ﻿using Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment_2_LinQ
 {
@@ -12,12 +7,12 @@ namespace Assignment_2_LinQ
         public static List<Member> GetListMembersByYear(List<Member> members, int year, char v)
         {
             List<Member> memberAfterFilter = new List<Member>();
-            if(members == null || members.Count == 0)
+            if (members == null || members.Count == 0)
             {
                 return memberAfterFilter;
             }
-            memberAfterFilter = members.Where(member => v == '=' && member.DateOfBirth.Year == year 
-                                                    || v == '>' && member.DateOfBirth.Year > year 
+            memberAfterFilter = members.Where(member => v == '=' && member.DateOfBirth.Year == year
+                                                    || v == '>' && member.DateOfBirth.Year > year
                                                     || v == '<' && member.DateOfBirth.Year < year)
                                     .ToList();
             return memberAfterFilter;
@@ -25,7 +20,7 @@ namespace Assignment_2_LinQ
 
         public static Member GetTheFirstMemberByBirthPlace(List<Member> members, string place = "")
         {
-            if(members == null || members.Count == 0)
+            if (members == null || members.Count == 0)
             {
                 return null;
             }
@@ -34,7 +29,7 @@ namespace Assignment_2_LinQ
 
         public static Member GetOldestMember(List<Member> members)
         {
-            if(members == null || members.Count == 0)
+            if (members == null || members.Count == 0)
             {
                 return null;
             }
@@ -47,7 +42,7 @@ namespace Assignment_2_LinQ
 
         public static List<Member> GetListMembersByGender(List<Member> members, string gender)
         {
-            if(members == null || members.Count == 0)
+            if (members == null || members.Count == 0)
             {
                 return new List<Member>();
             }

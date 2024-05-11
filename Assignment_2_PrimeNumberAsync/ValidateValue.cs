@@ -1,9 +1,4 @@
 ﻿using Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment_2_PrimeNumberAsync
 {
@@ -27,6 +22,7 @@ namespace Assignment_2_PrimeNumberAsync
             }
             return lowerBound.Value;
         }
+
         public static int ValidateUpperBound(int lowerBound)
         {
             CustomEnterValue upperBound;

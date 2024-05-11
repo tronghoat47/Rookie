@@ -1,4 +1,4 @@
-using ProjectStructure.Domain.DataAccess;
+using ProjectStructure.Domain;
 using ProjectStructure.Repository.IRepository;
 using ProjectStructure.Repository.Repository;
 using ProjectStucture.Application.Services;
