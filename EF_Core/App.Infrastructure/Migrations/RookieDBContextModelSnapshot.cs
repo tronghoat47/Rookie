@@ -97,8 +97,7 @@ namespace App.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasAnnotation("RegularExpression", "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");

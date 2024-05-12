@@ -1,5 +1,6 @@
 ﻿using App.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace App.Infrastructure
 {
@@ -11,6 +12,15 @@ namespace App.Infrastructure
 
         public RookieDBContext()
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
         }
 
         public DbSet<Department> Departments { get; set; }
