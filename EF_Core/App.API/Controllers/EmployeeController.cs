@@ -2,7 +2,11 @@
 using App.API.ViewModels.ModelResponses;
 using App.Application.Interfaces;
 using App.Domain.Models;
+using App.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using static App.API.ViewModels.ModelResponses.EmployeeProjectResponse;
 
 namespace App.API.Controllers
 {
@@ -11,10 +15,12 @@ namespace App.API.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly RookieDBContext _context;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService, RookieDBContext context)
         {
             _employeeService = employeeService;
+            _context = context;
         }
 
         [HttpGet]
@@ -125,19 +131,78 @@ namespace App.API.Controllers
             }
         }
 
-        //[HttpGet("employees-department")]
-        //public async Task<IActionResult> GetEmployeesDepartment()
-        //{
-        //}
+        [HttpGet("employees-department")]
+        public async Task<IActionResult> GetEmployeesDepartment()
+        {
+            var emps = _context.Database
+                .SqlQueryRaw<EmployeeDepartmentResponse>
+                (@"SELECT e.*, d.Name AS DepartmentName
+                    FROM Employees e
+                    JOIN Departments d ON e.DepartmentId = d.Id");
+            return Ok(emps);
+        }
 
-        //[HttpGet("employees-projects")]
-        //public async Task<IActionResult> GetEmployeesProjects()
-        //{
-        //}
+        [HttpGet("employees-projects")]
+        public async Task<IActionResult> GetEmployeesProjects()
+        {
+            var emps = _context.Database
+                .SqlQueryRaw<EmployeeProjectResponseQuery>
+                (@"SELECT
+                    e.Id AS EmployeeId,
+                    e.Name AS EmployeeName,
+                    e.DateOfBirth AS EmployeeDateOfBirth,
+                    e.Address AS EmployeeAddress,
+                    e.Email AS EmployeeEmail,
+                    e.Phone AS EmployeePhone,
+                    e.JoinDate AS EmployeeJoinDate,
+                    e.DepartmentId,
+                    JSON_QUERY(
+                        (SELECT
+                            p.Id AS ProjectId,
+                            p.Name AS ProjectName,
+                            p.StartDate AS ProjectStartDate,
+                            p.EndDate AS ProjectEndDate,
+                            p.Status AS ProjectStatus,
+                            p.Description AS ProjectDescription
+                        FROM
+                            Projects p
+                        JOIN
+                            ProjectEmployees pe ON p.Id = pe.ProjectId
+                        WHERE
+                            pe.EmployeeId = e.Id
+                        FOR JSON PATH)
+                    ) AS Projects
+                FROM
+                    Employees e");
 
-        //[HttpGet("employees-salary")]
-        //public async Task<IActionResult> GetEmployeesSalary()
-        //{
-        //}
+            var employeeProjects = emps.Select(e => new EmployeeProjectResponse
+            {
+                EmployeeId = e.EmployeeId,
+                EmployeeName = e.EmployeeName,
+                EmployeeDateOfBirth = e.EmployeeDateOfBirth,
+                EmployeeAddress = e.EmployeeAddress,
+                EmployeeEmail = e.EmployeeEmail,
+                EmployeePhone = e.EmployeePhone,
+                EmployeeJoinDate = e.EmployeeJoinDate,
+                DepartmentId = e.DepartmentId,
+                Projects = e.Projects != null
+        ? JsonConvert.DeserializeObject<List<ProjectCustom>>(e.Projects)
+        : null
+            });
+            return Ok(employeeProjects);
+        }
+
+        [HttpGet("filter/{salary}/{joinDate}")]
+        public async Task<IActionResult> GetEmployeesSalary(decimal salary, DateTime joinDate)
+        {
+            var emps = _context.Database
+                .SqlQueryRaw<EmployeeSalaryResponse>
+                (@"select e.*, d.Name as DepartmentName, s.Amount as Salary
+                    from Employees e
+                    join Salaries s on e.Id = s.EmployeeId
+                    join Departments d on e.DepartmentId = d.Id
+                    where s.Amount > {0} and e.JoinDate >= {1}", salary, joinDate);
+            return Ok(emps);
+        }
     }
 }
