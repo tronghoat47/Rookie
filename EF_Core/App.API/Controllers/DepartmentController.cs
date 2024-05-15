@@ -65,16 +65,12 @@ namespace App.API.Controllers
                 if (departmentExisted == null)
                     return NotFound("Department not found");
 
-                var department = new Department
-                {
-                    Id = id,
-                    Name = departmentRequest.Name,
-                    Location = departmentRequest.Location
-                };
-                var isSuccess = await _departmentService.UpdateDepartment(department);
+                departmentExisted.Name = departmentRequest.Name;
+                departmentExisted.Location = departmentRequest.Location;
+                var isSuccess = await _departmentService.UpdateDepartment(departmentExisted);
                 if (!isSuccess)
                     return BadRequest("Update department failed");
-                return Ok(new DepartmentResponse(department));
+                return Ok(new DepartmentResponse(departmentExisted));
             }
             catch (Exception ex)
             {
