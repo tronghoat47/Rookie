@@ -12,19 +12,19 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
     {
         private readonly IRookieService _rookieService;
         private readonly IExcelService _excelService;
+
         public RookieController(IRookieService rookieService, IExcelService excelService)
         {
             _rookieService = rookieService;
             _excelService = excelService;
         }
+
         public IActionResult Index(int page = 1, int pageSize = 2)
         {
             var people = _rookieService.GetPeople()
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            ViewBag.Message = TempData["Message"];
-            ViewBag.Error = TempData["Error"];
             ViewBag.CurrentPage = page;
             ViewBag.PageSize = pageSize;
             ViewBag.TotalPages = Math.Ceiling((double)_rookieService.GetPeople().Count() / pageSize);
@@ -58,7 +58,6 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
                 return RedirectToAction("Detail");
             }
             return RedirectToAction("Detail", new { id = person.Id });
-
         }
 
         public IActionResult PeopleWithFullName()
@@ -107,12 +106,14 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
             var file = _excelService.ExportToExcel(people);
             return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "people.xlsx");
         }
+
         public IActionResult Add()
         {
             //using enum GenderType to add to select tag
             ViewBag.GenderTypes = new SelectList(Enum.GetValues(typeof(GenderType)));
             return View(new Person());
         }
+
         [HttpPost]
         public IActionResult Add(Person person)
         {
@@ -123,7 +124,6 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
                 if (personReturned != null)
                 {
                     //I want to Index has a message success
-                    TempData["Message"] = "Add success";
                     return RedirectToAction("Index");
                 }
                 else
@@ -134,6 +134,7 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
             }
             return View(person);
         }
+
         public IActionResult Detail(Guid id)
         {
             var person = _rookieService.GetPersonById(id);
@@ -152,7 +153,6 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
             var person = _rookieService.GetPersonById(id);
             if (person == null)
             {
-                TempData["Error"] = "Person not found";
                 return RedirectToAction("Index");
             }
             ViewBag.GenderTypes = Enum.GetValues(typeof(GenderType));
@@ -168,7 +168,6 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
                 Person personReturned = _rookieService.UpdatePerson(person);
                 if (personReturned != null)
                 {
-                    TempData["Message"] = "Update success";
                     return RedirectToAction("Index");
                 }
                 else
@@ -179,6 +178,7 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
             }
             return View(person);
         }
+
         [HttpDelete]
         public IActionResult Delete(Guid id)
         {
@@ -192,6 +192,5 @@ namespace ProjectStructure.MVC_Day1.Areas.NashTech.Controllers
                 return Json(new { success = false });
             }
         }
-
     }
 }
