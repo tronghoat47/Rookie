@@ -63,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure", "EF_Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestingLayer", "TestingLayer", "{BD117EE9-6E3D-49A3-B0DB-C813FE4DF4AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectStructure.Tests", "ProjectStructure.Tests\ProjectStructure.Tests.csproj", "{B37511B9-1FE3-4099-9CA5-556788597E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStructure.Tests", "ProjectStructure.Tests\ProjectStructure.Tests.csproj", "{B37511B9-1FE3-4099-9CA5-556788597E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
